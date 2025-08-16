@@ -1,40 +1,114 @@
-# Shape Calculator Application
+Shape Calculator Application
 
-This application allows you to calculate properties (such as area and perimeter) for various geometric shapes using JSON input.
+This application calculates area and perimeter for various geometric shapes using JSON input.
 
-## How to Use
+Technologies Used
 
-1. **Send a POST request** with your shape data in JSON format to the following destination address:
+Go (Golang)
 
-    **Destination Address:**  
-    `http://localhost:8080/api/shape/calculate`
+Gin web framework
 
-2. **JSON Input Format:**  
-    The JSON should specify the shape type and its parameters.
+Go testing package for unit tests
 
-## Examples of Valid JSON Data
+Usage
 
-### 1. Rectangle
-##### {"shape":"rectangle",
-       "length":10,
-       "width":5}
+Send a POST request with shape data in JSON format to:
 
-### 2. Circle
-##### {"shape":"circle",
-       "radius":4.5}
+http://localhost:8080/api/shape/calculate
 
-### 3. Triangle
-##### {"shape":"triangle",
-       "base":6,
-       "height":6,
-       "side1":8.49,
-       "side2":6,
-       "side3":6}
 
-                ##### IMPORTANT #####
-In Triangle, All sides must be an actual triangle;
-else it will return error : triangle does not equate, meaning
-the provided sides' lengths cannot be a triangle.
+The JSON must specify the shape type and its parameters.
 
-Output will provide the type of shape, the Area in float value with a 2 digit approximate
-and the perimeter in float value with a 2 digit approximate.
+Example Requests
+Rectangle
+{
+  "shape": "rectangle",
+  "length": 10,
+  "width": 5
+}
+
+Circle
+{
+  "shape": "circle",
+  "radius": 4.5
+}
+
+Triangle
+{
+  "shape": "triangle",
+  "base": 6,
+  "height": 6,
+  "side1": 8.49,
+  "side2": 6,
+  "side3": 6
+}
+
+
+⚠️ Important (Triangles):
+
+All three sides must form a valid triangle.
+
+If not, the API will return an error:
+
+{ "error": "Triangle sides do not form a valid triangle." }
+
+Output
+
+The response includes:
+
+Shape type
+
+Area (float, rounded to 2 decimal places)
+
+Perimeter (float, rounded to 2 decimal places)
+
+How to Run Locally
+
+Clone the repository:
+
+git clone https://github.com/your-username/shape-calculator.git
+cd shape-calculator
+
+
+Install dependencies:
+
+go mod tidy
+
+
+Run the application:
+
+go run main.go
+
+
+Run tests:
+
+go test ./...
+
+Example cURL Requests
+Rectangle
+curl -X POST http://localhost:8080/api/shape/calculate \
+  -H "Content-Type: application/json" \
+  -d '{"shape":"rectangle","length":10,"width":5}'
+
+
+✅ Example Response:
+
+{
+  "shape": "rectangle",
+  "area": 50.00,
+  "perimeter": 30.00
+}
+
+Circle
+curl -X POST http://localhost:8080/api/shape/calculate \
+  -H "Content-Type: application/json" \
+  -d '{"shape":"circle","radius":4.5}'
+
+
+✅ Example Response:
+
+{
+  "shape": "circle",
+  "area": 63.62,
+  "perimeter": 28.27
+}
