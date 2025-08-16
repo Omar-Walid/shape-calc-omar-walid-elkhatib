@@ -1,7 +1,7 @@
 package models
 
 type ShapeRequest struct {
-	Type   string  `json:"type"`
+	Type   string  `json:"shape"`
 	Radius float64 `json:"radius,omitempty"`
 	Length float64 `json:"length,omitempty"`
 	Width  float64 `json:"width,omitempty"`
